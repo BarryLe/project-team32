@@ -34,6 +34,12 @@ public class BoardTest {
     }
 
     @Test
+    public void testSubmarineUnderwater() {
+        assertTrue(board.placeShip(new Ship("MINESWEEPER"), 10, 'A', false));
+        assertTrue(board.placeShip(new Ship("SUBMARINE"), 10, 'A', false));
+    }
+
+    @Test
     public void testAttackShip() {
         Ship minesweeper = new Ship("MINESWEEPER");
         board.placeShip(minesweeper, 1, 'A', true);
