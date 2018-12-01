@@ -19,7 +19,7 @@ public class Ship {
 	public Ship() {
 		occupiedSquares = new ArrayList<>();
 	}
-	
+
 	public Ship(String kind) {
 		this();
 		this.kind = kind;
@@ -74,7 +74,9 @@ public class Ship {
 						occupiedSquares.add(new Square(row, (char) (col + i)));
 					}
 				}
+
 			} else if (size == 4){
+
 				//BATTLESHIP
 				if (isVertical) {
 					if (i == 2) {
@@ -89,6 +91,7 @@ public class Ship {
 						occupiedSquares.add(new Square(row, (char) (col + i)));
 					}
 				}
+
 			} else if (size == 5){
 				//SUBMARINE
 				if (isVertical) {
@@ -108,6 +111,7 @@ public class Ship {
 						occupiedSquares.add(new Square(row, (char) (col + i)));
 					}
 				}
+
 			}
 		}
 	}
@@ -149,7 +153,9 @@ public class Ship {
 				var curSquare = result.getShip().getOccupiedSquares().get(i);
 				// Recursive call on attack, if the Square is not the captains quarters hit it.
 				if (!curSquare.isCapQuarter()) {
+
 				attack(curSquare.getRow(), curSquare.getColumn());
+
 				}
 			}
 			result.setResult(AtackStatus.SUNK);
