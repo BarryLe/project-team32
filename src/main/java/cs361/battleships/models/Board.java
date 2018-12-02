@@ -31,7 +31,7 @@ public class Board {
 		}
 		final var placedShip = new Ship(ship.getKind());
 		placedShip.place(y, x, isVertical);
-		if (ships.stream().anyMatch(s -> s.overlaps(placedShip))) {
+		if (ships.stream().anyMatch(s -> s.overlaps(placedShip))&&ship.getSize()!=5) {
 			return false;
 		}
 		if (placedShip.getOccupiedSquares().stream().anyMatch(s -> s.isOutOfBounds())) {
