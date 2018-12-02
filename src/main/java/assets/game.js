@@ -27,9 +27,56 @@ function showMoveFleetButton(){
     document.getElementById("move_fleet").style.display = "inline-block";
 }
 
+function showCardinalDirection() {
+    document.getElementById("N").style.display = "inline-block";
+    document.getElementById("S").style.display = "inline-block";
+    document.getElementById("E").style.display = "inline-block";
+    document.getElementById("W").style.display = "inline-block";
+
+    // Add event listeners to each of the cardinal direction buttons
+    document.getElementById("N").addEventListener("click", function() {
+        // Move the ships
+
+        // Hide the cardinal directions
+        hideCardinalDirection();
+    });
+    document.getElementById("S").addEventListener("click", function() {
+        // Move the ships
+
+        // Hide the cardinal directions
+        hideCardinalDirection();
+    });
+    document.getElementById("E").addEventListener("click", function() {
+        // Move the ships
+
+        // Hide the cardinal directions
+        hideCardinalDirection();
+    });
+    document.getElementById("W").addEventListener("click", function() {
+        // Move the ships
+
+        // Hide the cardinal directions
+        hideCardinalDirection();
+    });
+
+}
+
+function hideMoveFleetButton(){
+    document.getElementById("move_fleet").style.display = "none";
+}
+
+function hideCardinalDirection() {
+    document.getElementById("N").style.display = "none";
+    document.getElementById("S").style.display = "none";
+    document.getElementById("E").style.display = "none";
+    document.getElementById("W").style.display = "none";
+}
+
 function markHits(board, elementId, surrenderText) {
    var shipIsSunk = "false";
    var moveFleet = 0;
+   var fuel = 2;
+   var numberOfSunk = 0;
     board.attacks.forEach((attack) => {
         let className;
         if (attack.result === "MISS"){
@@ -48,10 +95,23 @@ function markHits(board, elementId, surrenderText) {
          }
         document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
     });
-    if(shipIsSunk === "true")
+
+    if(shipIsSunk === "true") {
         showSolarPulseButton();
-    if(moveFleet >= 2)
+    }
+
+    if(moveFleet >= 2) {
         showMoveFleetButton();
+        document.getElementById("move_fleet").addEventListener("click", function() {
+            if (fuel > 0) {
+                showCardinalDirection();
+                fuel = fuel - 1;
+            } else {
+                hideMoveFleetButton();
+                alert("ALERT: Your ships do not have enough fuel to move.");
+            }
+        });
+    }
 }
 
 function redrawGrid() {
@@ -205,6 +265,14 @@ function initGame() {
     document.getElementById("place_sonar").addEventListener("click",function(e){
         is_sonor = true;
          });
+
+    document.getElementById("place_help").addEventListener("click",function(e){
+           alert("Thank you for clicking Help/Info, let's explain how BattleShip works!\n");
+           alert("RULES!\n1.) Each player places their ships onto the board by clicking on a ship\nand then clicking on a location on the board(click vertical to place vertically)\n2.) Each player then begins clicking on cells on the opponents board, once all ships have been placed\nthus, they begin taking turns attacking.\n3.) Ships may not be overlapped with other ships on players board, or placed off the board itself.\n4.) A hit is indicated in flashing red, miss is a solid blue and players can't attack same location twice.\nOnce a player, or AI sinks the all of their opponents ships, the game is over and they WON!");
+           alert("SHIPS!\nMINESWEEPER: The Minesweeper is a ship that has a size of two spaces with captain's quarters located in the left cell\n\nDESTROYER: The Destroyer is a ship with a size of 3, with captain's quarters in cell second form the left.\n\nBATTLESHIP: The Battleship has a ship size of 4 and has the captain's quarters in the second from right cell.\n\nSUBMARINE: The Submarine is the only ship that can be above the water, or submerged below. While submerged below, it can only be hit by using the space laser,\nalso the submarine can be placed under other ships while submerged. The size of submarine is 5 cells 4 straight and 1 cell on top with captain's quarters located in farthest cell on the right.");
+           alert("ABILITIES!\nSONAR PULSE: The Sonar Pulse is a special ability that allows the player to see their opponents board. This is only available after sinking one ship and can only be used twice. Sonar Pulse is enable upon clicking Sonar Pulse button and then a cell on opponents board. This displays an area and locates marked ships within said area.\n\nSPACE LASER: The Space Laser is available after sinking an opponents ship and replaces the players usual bomb(click) attack. The Space Laser's ability and sole purpose is to pierce the water and hit the submarine located below, or hidden underneath other ships.\n\nCARDINAL DIRECTION: The Cardinal Directions activates after sinking two of the opponents ships and is used to move the players fleet around the board.Cardinal Direction can only be used twice, which allows moving ships to change position one cell over with each use and can be used by clicking the N,E,S,W buttons. However, ships near the edge of the map cannot be moved off thus, ships position remains unchanged if action occurs.\n\nCAPTAIN'S QUARTERS: The Captain's Quarters is an ability that each player has for each of their ships. Captain's Quarters is a special cell on each ship that shows up as a 'MISS' if hit the first time, but completely sink a ship if it is attacked again by the player, no matter what kind of damage the ship currently has obtained.");
+
+     });
     sendXhr("GET", "/game", {}, function(data) {
         game = data;
     });
