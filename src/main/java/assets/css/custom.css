@@ -115,8 +115,6 @@ background-color:gray;
     width: 200px;
 }
 
-
-
 .vertical{
   display: inline-block;
   padding: 10px 15px;
@@ -132,6 +130,23 @@ background-color:gray;
   box-shadow: 0 9px #999;
   top:100px;
 }
+
+.underwater{
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #0e28a5;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  top:100px;
+}
+
 body {
     background-image: url("https://i.ytimg.com/vi/C6yVfvhYLPE/maxresdefault.jpg");
        background-size:cover;
@@ -161,6 +176,12 @@ height:800;
 }
 
 .vermov{
+position:fixed;
+left:100px;
+top:600px;
+}
+
+.undermov{
 position:fixed;
 left:100px;
 top:500px;
